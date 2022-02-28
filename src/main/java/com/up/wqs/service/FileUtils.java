@@ -1,4 +1,4 @@
-package com.up.wqs.Service;
+package com.up.wqs.service;
 
 import java.io.File;
 

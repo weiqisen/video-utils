@@ -1,4 +1,4 @@
-package com.up.wqs.Service;
+package com.up.wqs.service;
 
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.ffmpeg.global.avutil;

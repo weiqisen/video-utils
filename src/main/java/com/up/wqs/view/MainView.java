@@ -14,9 +14,9 @@ import java.util.concurrent.*;
 
 import javax.swing.*;
 
-import com.up.wqs.Service.FileUtils;
-import com.up.wqs.Service.Part;
-import com.up.wqs.Service.VideoUtil;
+import com.up.wqs.service.FileUtils;
+import com.up.wqs.service.Part;
+import com.up.wqs.service.VideoUtil;
 import com.up.wqs.constant.AppConstants;
 import org.bytedeco.javacv.FrameGrabber;
 
