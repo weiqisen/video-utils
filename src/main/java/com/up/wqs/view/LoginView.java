@@ -6,8 +6,7 @@
  */
 package com.up.wqs.view;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -37,6 +36,7 @@ public class LoginView extends JFrame {
 		this.setTitle("登陆");
 
 		jPanelCenter = new JPanel();
+		jPanelCenter.setPreferredSize(new Dimension(100, 0));
 		jPanelCenter.setLayout(new GridLayout(3, 2));
 		jPanelCenter.add(new JLabel(AppConstants.LOGIN_USERNAME));
 		username = new JTextField();
@@ -46,9 +46,13 @@ public class LoginView extends JFrame {
 		// enter key listener
 		password.addKeyListener(new LoginListener());
 		jPanelCenter.add(password);
-		jPanelCenter.add(new JLabel("软件使用后请联系1277821959@qq.com"));
+
+
+		jPanelCenter.add(new JLabel("软件使用以及自媒体定制"));
+		jPanelCenter.add(new JLabel("请联系：304649190"));
 
 		jPanelSouth = new JPanel();
+
 		jPanelSouth.setLayout(new GridLayout(1, 2));
 		loginButton = new JButton(AppConstants.LOGIN);
 		loginButton.setBounds(20, 230, 150, 60);
@@ -65,7 +69,6 @@ public class LoginView extends JFrame {
 		this.add(jPanelCenter, BorderLayout.CENTER);
 		this.add(jPanelSouth, BorderLayout.SOUTH);
 
-		//this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setBounds(450, 250, 375, 180);
 		this.setResizable(false);
 		this.setVisible(true);

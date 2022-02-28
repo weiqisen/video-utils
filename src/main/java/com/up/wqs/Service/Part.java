@@ -40,14 +40,11 @@ public class Part {
         }
 
 //    public static void main(String[] args) {
-//
 //        ArrayList<String> ins = new ArrayList<>();
 //        ins.add("a");
 //        ins.add("b");
 //        ins.add("c");
 //        ins.add("d");
-//        getList(ins);
-//
 //    }
 
     public static ArrayList<String> getList (ArrayList<String> ins)
@@ -55,12 +52,6 @@ public class Part {
         List<Integer> iL = new ArrayList<>();
         ArrayList<String> ifs = new ArrayList<>();
         ArrayList<String> iffs = new Part().getAll("", iL, m, ifs, ins);
-        //System.out.println(iffs);
-        //System.out.println(iffs.size());
-        HashSet set = new HashSet(iffs);
-        if (set.size() == iffs.size()){
-            System.out.println("===============没有重复元素");
-        }
         return iffs;
     }
 

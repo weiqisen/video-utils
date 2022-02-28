@@ -107,7 +107,7 @@ public class VideoUtil {
     public static String mergeAV(String audioPath, String videoPath, Integer taskId) throws InterruptedException {
         System.out.println("-----mergeAV------" + videoPath);
 
-        String outputPath = OUTPUTDIR + "final" + taskId + ".mp4";
+        String outputPath = OUTPUTDIR + "output" + taskId + ".mp4";
         try (FFmpegFrameGrabber imageGrabber = new FFmpegFrameGrabber(videoPath);
              FFmpegFrameGrabber audioGrabber = new FFmpegFrameGrabber(audioPath)) {
             imageGrabber.start();
@@ -335,8 +335,7 @@ public class VideoUtil {
 
             fFmpegFrameRecorder.stop();
             File file = new File(outputPath + "task" + taskId + "temp" + (grabbers.size() - 1) + ".mp4");
-            //taskId += 1;
-            String finalDir = outputPath + "OriginFinal" + taskId + ".mp4";
+            String finalDir = outputPath + "OriginOutput" + taskId + ".mp4";
             if(!file.exists()){
                 System.out.println("error...");
             }
