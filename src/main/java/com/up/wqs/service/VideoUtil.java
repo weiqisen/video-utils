@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.up.wqs.constant.AppConstants.OUTPUTDIR;
-
 /**
  * @author weiqisen
  */
@@ -104,10 +102,10 @@ public class VideoUtil {
      * @apiNote 合并音视频
      */
 
-    public static String mergeAV(String audioPath, String videoPath, Integer taskId) throws InterruptedException {
+    public static String mergeAV(String audioPath, String videoPath, Integer taskId, String outputDir) throws InterruptedException {
         System.out.println("-----mergeAV------" + videoPath);
 
-        String outputPath = OUTPUTDIR + "output" + taskId + ".mp4";
+        String outputPath = outputDir + "output" + taskId + ".mp4";
         try (FFmpegFrameGrabber imageGrabber = new FFmpegFrameGrabber(videoPath);
              FFmpegFrameGrabber audioGrabber = new FFmpegFrameGrabber(audioPath)) {
             imageGrabber.start();

@@ -23,24 +23,4 @@ public class AppConstants {
 	public static final String MAINVIEW_TITLE = "视频合成系统v1.0";
 	public static final String MAINVIEW_FIRST = "开始合成";
 
-	// mac dir
-	//public static final String PREDIR = "/Users/weiqisen/Desktop/";
-
-	public static final String PREDIR = "E:\\";
-
-
-//	public static final String INPUTDIR = PREDIR + "input/";
-//	public static final String MERGEDIR = PREDIR + "merge/";
-//	public static final String TEMPDIR = PREDIR + "temp/";
-//	public static final String OUTPUTDIR = PREDIR + "output/";
-//	public static final String AUDIODIR = PREDIR + "audio/1.mp3";
-
-	public static final String FILEDIR = PREDIR + "deploy\\input";
-	public static final String INPUTDIR = PREDIR + "deploy\\input\\";
-	public static final String TEMPDIR = PREDIR + "deploy\\temp\\";
-	public static final String OUTPUTDIR = PREDIR + "deploy\\output\\";
-	public static final String AUDIODIR = PREDIR + "deploy\\audio\\1.mp3";
-
-
-
 }

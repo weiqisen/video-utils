@@ -6,22 +6,17 @@ import java.util.List;
 
 public class Part {
 
-        private static int total;
         private static int m = 3;
 
         private ArrayList<String> getAll(String s, List<Integer> iL, int m,ArrayList<String> ifs,ArrayList<String> ins) {
             if(m == 0) {
-                //System.out.println(s);
                 ifs.add(s);
-                total++;
                 return ifs;
             }
             List<Integer> iL2;
             for(int i = 0; i < ins.size(); i++) {
                 iL2 = new ArrayList<>();
                 iL2.addAll(iL);
-
-
                 if(!iL.contains(i)) {
                     String str = "";
                     if (s.equals("") ){
@@ -37,14 +32,6 @@ public class Part {
             }
             return ifs;
         }
-
-//    public static void main(String[] args) {
-//        ArrayList<String> ins = new ArrayList<>();
-//        ins.add("a");
-//        ins.add("b");
-//        ins.add("c");
-//        ins.add("d");
-//    }
 
     public static ArrayList<String> getList (ArrayList<String> ins)
     {
