@@ -45,7 +45,7 @@ public class MainView extends JFrame {
 
         try {
 
-            prop.load(new FileInputStream("res/my.properties"));
+            prop.load(new FileInputStream("config/dir.properties"));
 
         } catch (IOException e) {
 
