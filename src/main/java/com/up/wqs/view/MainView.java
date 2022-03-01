@@ -90,9 +90,9 @@ public class MainView extends JFrame {
         jPanelCenter.setLayout(new GridLayout(5, 5));
 
         jPanelCenter.setPreferredSize(new Dimension(100, 0));
-        jPanelCenter.add(new JLabel("视频输入路径：E:\\deploy\\input\\1.mp4  2.mp4  3.mp4"));
-        jPanelCenter.add(new JLabel("视频输出路径：E:\\deploy\\output\\output1.mp4 ...."));
-        jPanelCenter.add(new JLabel("音频输入路径：E:\\deploy\\audio\\1.mp3"));
+        jPanelCenter.add(new JLabel("视频输入路径：" + inputDir));
+        jPanelCenter.add(new JLabel("视频输出路径：" + outputDir));
+        jPanelCenter.add(new JLabel("音频输入路径：" + audioDir));
         jPanelCenter.add(consoleTip);
         jPanelCenter.add(console);
         Integer fileCount = FileUtils.getFileAndDirectory(fileDir);
