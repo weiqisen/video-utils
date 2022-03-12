@@ -1,9 +1,3 @@
-/**
- * 项目名：student
- * 修改历史：
- * 作者： MZ
- * 创建时间： 2016年1月6日-下午1:37:39
- */
 package com.up.wqs.view;
 
 import java.awt.*;
@@ -17,6 +11,7 @@ import java.util.concurrent.*;
 
 import javax.swing.*;
 
+import com.up.wqs.Main;
 import com.up.wqs.service.FileUtils;
 import com.up.wqs.service.Part;
 import com.up.wqs.service.VideoUtil;
@@ -31,8 +26,13 @@ public class MainView extends JFrame {
 
     private static final long serialVersionUID = 5870864087464173884L;
 
-    private JButton jButtonStart;
-    private JTextField conditionLeft, conditionRight;
+    private JButton jButtonStart, confirm, confirm1;
+    private static JTextField conditionRight, groupTipNum;
+    private static JLabel consoleTip;
+    private static ArrayList<String> finList;
+    private static ArrayList<String> ins;
+    private static int num;
+    private static int fileCount;
 
     public MainView() {
         init();
@@ -67,24 +67,70 @@ public class MainView extends JFrame {
 
         // north panel
         JPanel jPanelNorth = new JPanel();
-        jPanelNorth.setLayout(new GridLayout(1, 6, 5, 5));
+        jPanelNorth.setLayout(new GridLayout(2, 5));
+        jPanelNorth.setPreferredSize(new Dimension(200, 100));
 
-        JLabel tip = new JLabel("请输入导出范围：");
+        JLabel tip = new JLabel("请输入导出个数：");
         jPanelNorth.add(tip);
-
-
-        conditionLeft = new JTextField("1");
-        conditionLeft.setBounds(0, 0, 10, 10);
-        conditionLeft.addKeyListener(new FindListener());
-        jPanelNorth.add(conditionLeft);
 
         conditionRight = new JTextField("3");
         conditionRight.setBounds(0, 0, 10, 10);
+        conditionRight.setEnabled(false);
         jPanelNorth.add(conditionRight);
+
+        JButton modify1 = new JButton("修改");
+        modify1.addActionListener(e -> {
+            confirm1.setEnabled(true);
+            modify1.setEnabled(false);
+            conditionRight.setEnabled(true);
+        });
+        jPanelNorth.add(modify1);
+
+        confirm1 = new JButton("确认");
+        confirm1.setEnabled(false);
+        confirm1.addActionListener(e -> {
+            conditionRight.setText(String.valueOf(conditionRight.getText()));
+            modify1.setEnabled(true);
+            confirm1.setEnabled(false);
+            conditionRight.setEnabled(false);
+        });
+        jPanelNorth.add(confirm1);
+
+
+        JLabel groupTip = new JLabel("几段素材进行拼接：");
+        jPanelNorth.add(groupTip);
+        groupTipNum = new JTextField("3");
+        groupTipNum.setBounds(0, 0, 10, 10);
+        groupTipNum.addKeyListener(new GroupTipNumListener());
+        groupTipNum.setEnabled(false);
+        jPanelNorth.add(groupTipNum);
+
+        JButton modify = new JButton("修改");
+        modify.addActionListener(e -> {
+            confirm.setEnabled(true);
+            modify.setEnabled(false);
+            groupTipNum.setEnabled(true);
+        });
+        jPanelNorth.add(modify);
+
+        confirm = new JButton("确认");
+        confirm.setEnabled(false);
+        confirm.addActionListener(e -> {
+            num = Integer.parseInt(groupTipNum.getText());
+            finList = Part.getList(ins, num);
+            consoleTip.setText("本地原视频条数：" + fileCount + "-----> 可组合输出数量：" + finList.size() + "条");
+            conditionRight.setText(String.valueOf(finList.size()));
+            confirm.setEnabled(false);
+            modify.setEnabled(true);
+            groupTipNum.setEnabled(false);
+
+        });
+        jPanelNorth.add(confirm);
+
 
         // center panel
         JPanel jPanelCenter = new JPanel();
-        JLabel consoleTip = new JLabel("");
+        consoleTip = new JLabel("");
         JLabel console = new JLabel("");
 
         jPanelCenter.setLayout(new GridLayout(5, 5));
@@ -95,17 +141,17 @@ public class MainView extends JFrame {
         jPanelCenter.add(new JLabel("音频输入路径：" + audioDir));
         jPanelCenter.add(consoleTip);
         jPanelCenter.add(console);
-        Integer fileCount = FileUtils.getFileAndDirectory(fileDir);
-        ArrayList<String> ins = new ArrayList<>();
+        fileCount = FileUtils.getFileAndDirectory(fileDir);
+        ins = new ArrayList<>();
         for (int i = 0; i < fileCount; i++) {
             int no = i + 1;
             ins.add(inputDir + no + ".mp4");
         }
         // 获取算法总条数
-        ArrayList<String> finList = Part.getList(ins);
+        num = Integer.parseInt(groupTipNum.getText());
+        finList = Part.getList(ins, num);
         conditionRight.setText(Integer.toString(finList.size()));
         consoleTip.setText("本地原视频条数：" + fileCount + "-----> 可组合输出数量：" + finList.size() + "条");
-
 
         // south panel
         JPanel jPanelSouth = new JPanel();
@@ -116,22 +162,14 @@ public class MainView extends JFrame {
             System.out.println(e);
 
             // 开始合成视频并输出信息到中控
-            String leftCount = conditionLeft.getText();
-            String rightCount = conditionRight.getText();
 
-            int leftCountInt = Integer.parseInt(leftCount);
+            String rightCount = conditionRight.getText();
             int rightCountInt = Integer.parseInt(rightCount);
-            int range = rightCountInt - leftCountInt;
-            System.out.println("共计输出视频任务：" + range + "条");
+            System.out.println("共计输出视频任务：" + rightCountInt + "条");
             // 这里结合算法筛选出需要的个数放进集合里面
-            if (range <= 0) {
+            if (rightCountInt <= 0) {
                 System.out.println("范围错误，请重新设置!");
                 JOptionPane.showMessageDialog(null, "范围错误，请重新设置!");
-                return;
-            }
-            if (leftCountInt <= 0) {
-                System.out.println("左边范围错误，请重新设置!");
-                JOptionPane.showMessageDialog(null, "左边范围错误，请重新设置!");
                 return;
             }
             if (rightCountInt > finList.size()) {
@@ -139,11 +177,10 @@ public class MainView extends JFrame {
                 JOptionPane.showMessageDialog(null, "导出数量不能大于最大组合数量，请重新设置!");
                 return;
             }
-            conditionLeft.setEnabled(false);
             conditionRight.setEnabled(false);
             jButtonStart.setEnabled(false);
             ExecutorService executor = Executors.newFixedThreadPool(4);
-            for (int i = leftCountInt - 1; i < range; i++) {
+            for (int i = 0; i < rightCountInt; i++) {
                 int finalII = i;
                 executor.execute(() -> {
                     int finalI = finalII + 1;
@@ -151,9 +188,10 @@ public class MainView extends JFrame {
                     // 根据@分割
                     String[] split = s.split("@");
                     ArrayList<String> strings2 = new ArrayList<>();
-                    strings2.add(split[0]);
-                    strings2.add(split[1]);
-                    strings2.add(split[2]);
+                    // 按长度增加
+                    for (int j = 0; j < split.length; j++) {
+                        strings2.add(split[j]);
+                    }
                     System.out.println(Thread.currentThread().getName() + "开始组合-->第" + finalII + "次--------" + strings2);
                     try {
                         String mergeInput = VideoUtil.mergeVideos(strings2, tempDir, audioDir, finalI);
@@ -194,9 +232,10 @@ public class MainView extends JFrame {
     }
 
 
-    private static class FindListener extends KeyAdapter {
+    private static class GroupTipNumListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
+
         }
     }
 
